@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include("emessages.urls")),
+    url(r'^', include("authentication.urls")),
     url(r'^admin/', admin.site.urls),
 ]
