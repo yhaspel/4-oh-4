@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+            {{ view.page_title }} | 4-Oh-4
+        {% endblock %}
+    </title>
+    <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+
+
+    <div style="float:right">
+        <a href="{% url "emessages:add" %}">Add a new error message...</a>
+        |
+        <a href="{% url "emessages:preview" %}">Preview an error message...</a>
+        |
+        <a href="{% url "emessages:home" %}">Error message list</a>
+        |
+        TEST
+        |
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <h1>
+        4-Oh-4
+    </h1>
+
+    <div>
+
+        {% block content %}
+            CONTENT
+        {% endblock %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
