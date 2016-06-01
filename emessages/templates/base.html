@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 <!DOCTYPE html>
 <html>
@@ -18,17 +19,16 @@
 <div class="container">
 
 
-
     <div style="float:right">
         <a href="{% url "emessages:add" %}">Add a new error message...</a>
         |
-        <a href="{% url "emessages:preview" %}">Preview an error message...</a>
+        <a href="{% url "emessages:preview" err_id=1 %}">Preview an error message...</a>
         |
         <a href="{% url "emessages:home" %}">Error message list</a>
         |
         TEST
         |
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'authentication:logout' %}">Logout</a>
     </div>
 
     <h1>
@@ -37,9 +37,9 @@
 
     <div>
 
-        {% block content %}
-            CONTENT
-        {% endblock %}
+        {#        {% block content %}#}
+        {#            CONTENT#}
+        {#        {% endblock %}#}
 
     </div>
 

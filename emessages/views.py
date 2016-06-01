@@ -3,14 +3,14 @@ from django.views.generic import View, ListView
 from django.views.generic.edit import CreateView, FormView
 from . import models
 from django.core.urlresolvers import reverse_lazy, reverse
+# for the err_id
+import random
 
 
 class EMessageView(View):
     def get(self, request, err_id):
         el = models.EMessage.objects.filter(error_code=err_id).first()
-        err = 0
         # success_url = reverse_lazy('emessages:preview', kwargs={'err_id': err})
-
         return render(request, "emessages/preview.html", {
             'm': el
         })
@@ -25,7 +25,7 @@ class EMessageCreate(CreateView):
         'image URL',
     ]
 
-    success_url = reverse_lazy('emessages:add')
+    success_url = reverse_lazy('emessages:home')
 
     def get_initial(self):
         d = super().get_initial()
@@ -40,8 +40,7 @@ class EMessageCreate(CreateView):
 class ListEMessageView(ListView):
     page_title = "Home"
     model = models.EMessage
-
-    success_url = reverse_lazy('emessages:home')
+    template_name = "emessages/emessage_list.html"
 
     def get_queryset(self):
-        return super().get_queryset()
+       return super().get_queryset()  # .filter(account__user=self.request.user)
