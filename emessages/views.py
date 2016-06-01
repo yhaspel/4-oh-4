@@ -12,7 +12,7 @@ class EMessageView(View):
         # success_url = reverse_lazy('emessages:preview', kwargs={'err_id': err})
 
         return render(request, "emessages/preview.html", {
-            'm': el
+            'err_id': err_id
         })
 
 
@@ -40,8 +40,6 @@ class EMessageCreate(CreateView):
 class ListEMessageView(ListView):
     page_title = "Home"
     model = models.EMessage
-
-    success_url = reverse_lazy('emessages:home')
 
     def get_queryset(self):
         return super().get_queryset()
