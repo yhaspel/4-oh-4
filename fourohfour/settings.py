@@ -35,6 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party or any other party
+    'django_extensions',
+    'bootstrap3',
+
+    # our very own children
     'emessages',
     'authentication',
 ]
