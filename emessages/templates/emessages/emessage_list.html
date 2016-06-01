@@ -1,26 +1,36 @@
-
-
-
 {% extends "base.html" %}
-{% load bootstrap3 %}
-
 
 {% block content %}
 
-    <a href="{% url "emessages:home" %}">Errors</a>
-    &gt;
-    Add a new Account...
+    <a href="{% url "emessages:home" %}">4-Oh-4</a>
 
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% for object in object_list %}
+    {% if object_list.count %}
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <td>{{ object.error_code }}</td>
-                <td>${{ object.title }}</td>
-                <td>{{ object.description }}</td>
+                <th>Error Code</th>
+                <th>Title</th>
+                <th>Image URL</th>
             </tr>
-        {% endfor %}
-    </form>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.error_code }}</td>
+                    <td>{{ object.title }}</td>
+                    <td>
+                        <a href="{{ object.get_absolute_image_url }}">
+                            {{ object.photo }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    {% else %}
+        No errors added yet...
+    {% endif %}
+
 
 {% endblock %}

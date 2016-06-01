@@ -1,5 +1,18 @@
-<form action="" method="post" enctype="multipart/form-data">
-    {{  form.as_p  }}
-    {% csrf_token %}
-    <input type="submit" value="save"/>
-</form>
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+    <a href="{% url "emessages:home" %}">4-Oh-4</a>
+    &gt;
+    Add a new error message...
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {{  form.as_p  }}
+        {% csrf_token %}
+        <input type="submit" value="save"/>
+    </form>
+
+
+{% endblock %}
