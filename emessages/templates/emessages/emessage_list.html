@@ -1,18 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for object in object_list %}
-    <tr>
-        <td>{{ object.error_code }}</td>
-        <td>${{ object.title }}</td>
-        <td>{{ object.description }}</td>
-    </tr>
-{% endfor %}
 
 
-</body>
-</html>
+
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+    <a href="{% url "emessages:home" %}">Errors</a>
+    &gt;
+    Add a new Account...
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% for object in object_list %}
+            <tr>
+                <td>{{ object.error_code }}</td>
+                <td>${{ object.title }}</td>
+                <td>{{ object.description }}</td>
+            </tr>
+        {% endfor %}
+    </form>
+
+{% endblock %}

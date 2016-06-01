@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View, ListView
 from django.views.generic.edit import CreateView, FormView
@@ -9,6 +8,9 @@ from django.core.urlresolvers import reverse_lazy, reverse
 class EMessageView(View):
     def get(self, request, err_id):
         el = models.EMessage.objects.filter(error_code=err_id).first()
+        err = 0
+        # success_url = reverse_lazy('emessages:preview', kwargs={'err_id': err})
+
         return render(request, "emessages/preview.html", {
             'm': el
         })
@@ -22,15 +24,15 @@ class EMessageCreate(CreateView):
         'description',
         'image URL',
     ]
-    err = 0
-    success_url = reverse_lazy('emessages:home')
+
+    success_url = reverse_lazy('emessages:add')
 
     def get_initial(self):
         d = super().get_initial()
         return d
 
     def form_valid(self, form):
-        # form.instance.user = self.request.user
+        form.instance.user = self.request.user
         err = form.instance.error_code
         return super().form_valid(form)
 
@@ -38,6 +40,8 @@ class EMessageCreate(CreateView):
 class ListEMessageView(ListView):
     page_title = "Home"
     model = models.EMessage
+
+    success_url = reverse_lazy('emessages:home')
 
     def get_queryset(self):
         return super().get_queryset()
