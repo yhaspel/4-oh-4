@@ -3,17 +3,13 @@
 
 {% block content %}
 
-    <a href="{% url "emessages:preview" %}">Expenses</a>
-
+    <a href="{% url "emessages:home" %}">4-Oh-4</a>
+    &gt;
+    Add a new error message...
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                Save {% bootstrap_icon "save" %}
-            </button>
-        {% endbuttons %}
+
     </form>
 
 {% endblock %}
