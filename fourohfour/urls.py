@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
+app_name = "fourohfour"
+
 urlpatterns = [
-    url(r'', include("emessages.urls")),
-    url(r'^', include("authentication.urls")),
-    url(r'^admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  url(r'^', include("emessages.urls")),
+                  url(r'^a/', include("authentication.urls")),
+                  url(r'^admin/', admin.site.urls),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
