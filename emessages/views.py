@@ -23,7 +23,7 @@ class EMessageCreate(CreateView):
         'image URL',
     ]
     err = 0
-    success_url = reverse_lazy('emessages:home')
+    success_url = reverse('emessages:home', kwargs={'err_id': err})
 
     def get_initial(self):
         d = super().get_initial()
