@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # our very own children
     'emessages',
+    'tips',
     'authentication',
 ]
 
