@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, FormView
 from . import models
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
-
+from tips import views as tips_views
 
 # for the err_id
 
@@ -20,7 +20,7 @@ def preview_em(request, err_id):
                   )
 
 
-def preview_em_end(request,user_id, err_id):
+def preview_em_end(request, user_id, err_id):
     return render(request, "emessages/end_preview.html",
                   {
                       'object': models.EMessage.objects.filter(error_code=err_id).first()
@@ -78,6 +78,9 @@ class ListEMessageView(ListView):
 
     success_url = reverse_lazy('emessages:home')
     template_name = "emessages/emessage_list.html"
+
+    def get_tip(self):
+        return tips_views.get_random_tip(self.request).content
 
     def get_queryset(self):
         return super().get_queryset()  # .filter(account__user=self.request.user)
