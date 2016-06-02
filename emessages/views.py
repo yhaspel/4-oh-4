@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.forms import forms
 from django.forms import ModelForm
 from django.shortcuts import render
@@ -66,8 +67,9 @@ class EMessageCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        err = form.instance.error_code
-        return super().form_valid(form)
+        resp = super().form_valid(form)
+        messages.success(self.request, "Error loaded")
+        return resp
 
 
 class ListEMessageView(ListView):
