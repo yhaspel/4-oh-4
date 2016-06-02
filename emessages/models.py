@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from fourohfour.settings import MEDIA_URL
 
+
 class EMessage(models.Model):
     title = models.CharField(max_length=40)
     description = models.TextField(max_length=1000, null=True, blank=True)

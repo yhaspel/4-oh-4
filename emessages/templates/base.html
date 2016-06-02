@@ -12,21 +12,19 @@
             {{ view.page_title }} | 4-Oh-4
         {% endblock %}
     </title>
+
     <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
 
-
     <div style="float:right">
         <a href="{% url "emessages:add" %}">Add a new error message...</a>
         |
-        <a href="{% url "emessages:preview" err_id=1 %}">Preview an error message...</a>
-        |
         <a href="{% url "emessages:home" %}">Error message list</a>
         |
-        TEST
+        {{ user }}
         |
         <a href="{% url 'authentication:logout' %}">Logout</a>
     </div>
@@ -35,14 +33,10 @@
         4-Oh-4
     </h1>
 
-    <div>
+    <div >
         {% block content %}
             CONTENT
         {% endblock %}
-        {#        {% block content %}#}
-        {#            CONTENT#}
-        {#        {% endblock %}#}
-
     </div>
 
 </div>
