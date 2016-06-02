@@ -6,19 +6,25 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, FormView
 from . import models
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.views.generic.detail import DetailView
+
 
 # for the err_id
 
-import random
+def preview_em(request, err_id):
+    return render(request, "emessages/preview.html",
+                  {
+                      'object': models.EMessage.objects.filter(error_code=err_id).first()
+                  }
+                  )
 
 
-class EMessageView(View):
-    def get(self, request, err_id):
-        el = models.EMessage.objects.filter(error_code=err_id).first()
-
-        return render(request, "emessages/preview.html", {
-            'm': el
-        })
+def preview_em_end(request,user_id, err_id):
+    return render(request, "emessages/end_preview.html",
+                  {
+                      'object': models.EMessage.objects.filter(error_code=err_id).first()
+                  }
+                  )
 
 
 class EMessageForm(ModelForm):
@@ -64,8 +70,6 @@ class EMessageCreate(CreateView):
         return super().form_valid(form)
 
 
-
-
 class ListEMessageView(ListView):
     page_title = "Home"
     model = models.EMessage
@@ -73,6 +77,8 @@ class ListEMessageView(ListView):
     success_url = reverse_lazy('emessages:home')
     template_name = "emessages/emessage_list.html"
 
-
     def get_queryset(self):
         return super().get_queryset()  # .filter(account__user=self.request.user)
+
+
+import random

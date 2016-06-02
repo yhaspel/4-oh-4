@@ -1,15 +1,48 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 
+{#{% block content %}#}
+{##}
+{#    <a href="{% url "emessages:home" %}">4-Oh-4</a>#}
+{#    &gt;#}
+{#    Add a new error message...#}
+{##}
+{#    <ul class="list-group">#}
+{#        <li class="list-group-item">#}
+{#            {{ object.error_code }}#}
+{#        </li>#}
+{#        <li class="list-group-item">#}
+{#            {{ object.title }}#}
+{#        </li>#}
+{#        {% if object.description %}#}
+{#            <li class="list-group-item">#}
+{#                {{ object.description|linebreaks }}#}
+{#            </li>#}
+{#        {% endif %}#}
+{#        {% if object.photo %}#}
+{#            <li class="list-group-item">#}
+{#                <img src="{{ object.get_absolute_image_url }}" class="img-responsive">#}
+{#            </li>#}
+{#        {% endif %}#}
+{#    </ul>#}
+{##}
+{#{% endblock %}#}
+
+
+
+
+
+
 {% block content %}
-
-    <a href="{% url "emessages:home" %}">4-Oh-4</a>
-    &gt;
-    Add a new error message...
-
-    <form method="get" enctype="multipart/form-data">
-        {% csrf_token %}
-        form.
-    </form>
-
+    <div class="page" style="width: 40%;height:30%; margin: auto;">
+        <div class="page-header">
+            <h1>{{ object.error_code }}
+                <small>{{ object.title }}</small>
+            </h1>
+        </div>
+        <div class="page-body">
+            <p>{{ object.description }}</p>
+            <img src="{{ object.get_absolute_image_url }}" style="width:100%;">
+        </div>
+    </div>
 {% endblock %}

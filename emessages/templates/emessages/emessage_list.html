@@ -23,7 +23,7 @@
                             View photo
                         </a>
                         |
-                        <a href="{% url "emessages:preview" err_id=187 %}">Preview</a>
+                        <a href="{% url "emessages:preview" err_id=object.error_code %}">Preview</a>
                     </td>
                 </tr>
             {% endfor %}
