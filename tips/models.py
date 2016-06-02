@@ -1,4 +1,5 @@
 from django.db import models
+import sys
 
 
 class TipOfDay(models.Model):
@@ -14,4 +15,8 @@ class TipOfDay(models.Model):
 
     def __str__(self):
         return "TipOfDay.: {}".format(self.title)
+
+
+
+
 
