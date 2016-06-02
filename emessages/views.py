@@ -39,15 +39,18 @@ class EMessageForm(ModelForm):
 
     class Meta:
         model = models.EMessage
-        fields = '__all__'
-        # your other Meta options
+        fields = [
+            'error_code',
+            'title',
+            'description',
+            'photo',
+        ]
 
 
 class EMessageCreate(CreateView):
     form_class = EMessageForm
 
     model = models.EMessage
-
 
     success_url = reverse_lazy('emessages:home')
 
@@ -61,25 +64,6 @@ class EMessageCreate(CreateView):
         return super().form_valid(form)
 
 
-# class EMessageCreate(CreateView):
-#     model = models.EMessage
-#     fields = [
-#         'error_code',
-#         'title',
-#         'description',
-#         'photo',
-#     ]
-#
-#     success_url = reverse_lazy('emessages:home')
-#
-#     def get_initial(self):
-#         d = super().get_initial()
-#         return d
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         err = form.instance.error_code
-#         return super().form_valid(form)
 
 
 class ListEMessageView(ListView):

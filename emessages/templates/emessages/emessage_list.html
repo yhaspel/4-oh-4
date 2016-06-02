@@ -20,8 +20,10 @@
                     <td>{{ object.title }}</td>
                     <td>
                         <a href="{{ object.get_absolute_image_url }}">
-                            {{ object.photo }}
+                            View photo
                         </a>
+                        |
+                        <a href="{% url "emessages:preview" err_id=187 %}">Preview</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -29,7 +31,7 @@
 
         </table>
     {% else %}
-        No errors added yet...
+        No errors added yet. <a href="{% url "emessages:add" %}">Add an error message</a>
     {% endif %}
 
 
