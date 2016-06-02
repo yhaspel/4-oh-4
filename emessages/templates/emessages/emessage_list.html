@@ -2,6 +2,9 @@
 
 {% block content %}
 
+    <div style="width: 80%; margin: auto">
+        {{ view.get_tip | safe }}
+    </div>
     <a href="{% url "emessages:home" %}">4-Oh-4</a>
 
     {% if object_list.count %}
