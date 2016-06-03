@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.forms import forms
 from django.forms import ModelForm
-from django.http import Http404,HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from django.views.generic import ListView
@@ -10,7 +10,6 @@ from . import models
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
 from tips import views as tips_views
-from tips import console as mc
 
 
 def preview_em(request, err_id):
@@ -19,6 +18,7 @@ def preview_em(request, err_id):
                       'object': models.EMessage.objects.filter(error_code=err_id).first()
                   }
                   )
+
 
 def preview_em_end(request, user_id, err_id):
     return render(request, "emessages/end_preview.html",
@@ -30,8 +30,8 @@ def preview_em_end(request, user_id, err_id):
 
 class ErrorMessageDelete(DeleteView):
     model = models.EMessage
-    success_url = reverse_lazy('emessages:home') # This is where this view will
-                                            # redirect the user
+    success_url = reverse_lazy('emessages:home')  # This is where this view will
+    # redirect the user
     template_name = 'emessages/delete_em.html'
 
 
@@ -87,9 +87,7 @@ class ListEMessageView(ListView):
     template_name = "emessages/emessage_list.html"
 
     def get_tip(self):
-        # mc.save_tips(mc.load_tips_from_dlsv())
         return tips_views.get_random_tip(self.request).content
 
     def get_queryset(self):
         return super().get_queryset()  # .filter(account__user=self.request.user)
-
