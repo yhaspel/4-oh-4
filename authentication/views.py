@@ -1,5 +1,7 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.template.context_processors import csrf
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from . import forms
@@ -34,3 +36,15 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("authentication:login")
+
+
+def register_user(request):
+    if request.POST:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    args = {}
+    args.update(csrf(request))
+    args['form'] = UserCreationForm()
+    return render(request, 'authentication/register.html', args)

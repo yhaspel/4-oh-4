@@ -17,6 +17,3 @@ class TipOfDay(models.Model):
         return "TipOfDay.: {}".format(self.title)
 
 
-
-
-
