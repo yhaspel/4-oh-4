@@ -1,21 +1,45 @@
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
-
 from django.views.generic import CreateView
+from . import forms, models
 
-from . import models, forms
+
+def get_abulote_tip(pk=None):
+    if pk == None:
+        tip = models.TipOfDay.objects.order_by("?")
+        if len(tip) == 0:
+            tip = models.TipOfDay()
+            tip.id = None
+            tip.title = "No tips.. "
+            tip.tip_author = "Yoni Mood"
+            tip.tip_text = "run:>>>> from tips import console as mc >>>> mc.save_tips(mc.load_tips_from_dlsv())"
+        else:
+            tip = tip.first()
+    else:
+        tip = models.TipOfDay.objects.filter(pk=pk)
+        if len(tip) == 0:
+            tip = models.TipOfDay()
+            tip.id = None
+            tip.title = "404"
+            tip.tip_author = "Yoni Mood"
+            tip.tip_text = "there is no tip"
+        else:
+            tip = tip.first()
+    return tip
 
 
-# Create your views here.
+    # Create your views here.
+
+
 def get_random_tip(request):
-    tip = models.TipOfDay.objects.order_by("?").first()
+    tip = get_abulote_tip()
     return get_tip(request, tip.id)
 
 
 def tips_of_days_form(request, pk):
     pk = int(pk)
-    tip = get_object_or_404(models.TipOfDay,pk=pk)
+    tip = get_object_or_404(models.TipOfDay,  pk=pk)
     if request.POST:
         if request.POST:
             t_form = forms.TipsForDayForm(request.POST, instance=tip)
@@ -37,12 +61,11 @@ class TipsOfDayCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        err = form.instance.error_code
         return super().form_valid(form)
 
 
 def get_tip(request, pk):
-    tip = get_object_or_404(models.TipOfDay, id=pk)
+    tip = get_abulote_tip(pk=pk)
     return render(request, "tips/tip.html", {
         'object': tip,
     })
