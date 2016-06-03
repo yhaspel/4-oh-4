@@ -34,7 +34,15 @@
 
 
 {% block content %}
-    <div class="page" style="width: 40%;height:30%; margin: auto;">
+    <style>
+    body{
+        background-color: ghostwhite;
+    }
+    .page .page-header{
+        border-color: lightgray;
+    }
+    </style>
+    <div class="page" style="width: 40%;height:30%; margin: auto;  padding: 10px">
         <div class="page-header">
             <h1>{{ object.error_code }}
                 <small>{{ object.title }}</small>
