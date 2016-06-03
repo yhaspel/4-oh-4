@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+    <a href="{% url "emessages:home" %}">4-Oh-4</a>
+    &gt;
+    Confirm deletion of error message...
+    <div>
+        <h4>Are you sure you want to delete error message, titled: '{{ object.title }}'?</h4>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yup, I'm sure.</button>
+    </form>
+
+
+{% endblock %}

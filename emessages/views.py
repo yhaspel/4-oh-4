@@ -1,11 +1,11 @@
 from django.contrib import messages
 from django.forms import forms
 from django.forms import ModelForm
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404,HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, DeleteView
 from . import models
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
@@ -26,6 +26,13 @@ def preview_em_end(request, user_id, err_id):
                       'object': models.EMessage.objects.filter(error_code=err_id).first()
                   }
                   )
+
+
+class ErrorMessageDelete(DeleteView):
+    model = models.EMessage
+    success_url = reverse_lazy('emessages:home') # This is where this view will
+                                            # redirect the user
+    template_name = 'emessages/delete_em.html'
 
 
 class EMessageForm(ModelForm):

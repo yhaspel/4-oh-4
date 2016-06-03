@@ -38,7 +38,7 @@ class LogoutView(View):
         return redirect("authentication:login")
 
 
-def reqister_user(request):
+def register_user(request):
     if request.POST:
         form = UserCreationForm(request.POST)
         if form.is_valid():
