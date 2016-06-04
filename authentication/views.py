@@ -1,10 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.template.context_processors import csrf
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from . import forms
+from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
 
 
@@ -48,3 +49,21 @@ def register_user(request):
     args.update(csrf(request))
     args['form'] = UserCreationForm()
     return render(request, 'authentication/register.html', args)
+
+
+def password_change(request):
+    args = {}
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect("emessages:home")
+        form.add_error(None, "Invalid user name or password")
+    args.update(csrf(request))
+    args['form'] = form = PasswordChangeForm(user=request.user)
+    return render(request, "authentication/login.html", args)
+
+#
+# def password_change_done(request):
+#     return None
