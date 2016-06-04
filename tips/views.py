@@ -2,6 +2,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView
+
+from authentication.models import LoggedInMixin, redirect_not_usr
 from . import forms, models
 
 
@@ -33,13 +35,19 @@ def get_abulote_tip(pk=None):
 
 
 def get_random_tip(request):
+    # result = redirect_not_usr(request)
+    # if result:
+    #     return result
     tip = get_abulote_tip()
     return get_tip(request, tip.id)
 
 
 def tips_of_days_form(request, pk):
+    result = redirect_not_usr(request)
+    if result:
+        return result
     pk = int(pk)
-    tip = get_object_or_404(models.TipOfDay,  pk=pk)
+    tip = get_object_or_404(models.TipOfDay, pk=pk)
     if request.POST:
         if request.POST:
             t_form = forms.TipsForDayForm(request.POST, instance=tip)
@@ -49,7 +57,7 @@ def tips_of_days_form(request, pk):
     return render(request, 'tips/tipofday_form.html', {'form': t_form})
 
 
-class TipsOfDayCreate(CreateView):
+class TipsOfDayCreate(LoggedInMixin, CreateView):
     form_class = forms.TipsForDayForm
 
     model = models.TipOfDay
