@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block content %}
 
     <div style="width: 80%; margin: auto">
@@ -8,38 +10,38 @@
     <a href="{% url "emessages:home" %}">4-Oh-4</a>
 
     {% if object_list.count %}
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Error Code</th>
-                <th>Title</th>
-                <th>Image URL</th>
-            </tr>
-            </thead>
-            <tbody>
+        <br>
+        <div class="row">
             {% for object in object_list %}
-                <tr>
-                    <td>{{ object.error_code }}</td>
-                    <td>{{ object.title }}</td>
-                    <td>
-                        <a href="{{ object.get_absolute_image_url }}">
-                            View photo
-                        </a>
-                        |
-                        <a href="{% url "emessages:preview" err_id=object.error_code %}">Preview</a>
-                        |
-                        <a href="{% url "emessages:em_update" pk=object.error_code %}">Edit</a>
-                        |
-                        <a href="{% url 'emessages:delete_em' pk=object.error_code %}">Remove</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
+                {#                <div class="row">#}
+                <div class="col-sm-6 col-md-4" style="height: 300px;">
+                    <div class="thumbnail" style="background-color: #9acfea; border: groove; height: 100%; margin-bottom: 10px;">
+                        <img src="{{ object.get_absolute_image_url }}"
+                             style="height: 100px; width: auto;">
 
-        </table>
+                        <div class="caption">
+                            <h3>{{ object.error_code }}</h3>
+                            <h5>{{ object.title }}</h5>
+                            <p>{{ object.description }}</p>
+                            <p><a href="{{ object.get_absolute_image_url }}">
+                                View photo
+                            </a>
+                                |
+                                <a href="{% url "emessages:preview" err_id=object.error_code %}">Preview</a>
+                                |
+                                <a href="{% url "emessages:em_update" pk=object.error_code %}">Edit</a>
+                                |
+                                <a href="{% url 'emessages:delete_em' pk=object.error_code %}">Remove</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
     {% else %}
         No errors added yet. <a href="{% url "emessages:add" %}">Add an error message</a>
     {% endif %}
-
 
 {% endblock %}
