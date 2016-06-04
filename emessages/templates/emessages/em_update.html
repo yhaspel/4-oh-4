@@ -1,0 +1,19 @@
+
+
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+    <a href="{% url "emessages:home" %}">4-Oh-4</a>
+    &gt;
+    Edit an error message...
+
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update"/>
+    </form>
+
+
+{% endblock %}

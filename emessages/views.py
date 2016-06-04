@@ -1,14 +1,10 @@
 from django.contrib import messages
-from django.forms import forms
 from django.forms import ModelForm
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import View
+from django.shortcuts import render
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, FormView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from . import models
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.views.generic.detail import DetailView
+from django.core.urlresolvers import reverse_lazy
 from tips import views as tips_views
 
 
@@ -77,6 +73,18 @@ class EMessageCreate(CreateView):
         resp = super().form_valid(form)
         messages.success(self.request, "Error loaded")
         return resp
+
+
+class ErrorMessageUpdate(UpdateView):
+    form_class = EMessageForm
+
+    model = models.EMessage
+
+    success_url = reverse_lazy('emessages:home')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Error updated")
+        return super().form_valid(form)
 
 
 class ListEMessageView(ListView):

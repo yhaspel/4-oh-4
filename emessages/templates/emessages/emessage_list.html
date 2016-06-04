@@ -28,6 +28,8 @@
                         |
                         <a href="{% url "emessages:preview" err_id=object.error_code %}">Preview</a>
                         |
+                        <a href="{% url "emessages:em_update" pk=object.error_code %}">Edit</a>
+                        |
                         <a href="{% url 'emessages:delete_em' pk=object.error_code %}">Remove</a>
                     </td>
                 </tr>
