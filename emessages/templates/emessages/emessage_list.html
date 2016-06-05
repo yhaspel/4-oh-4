@@ -13,27 +13,26 @@
         <br>
         <div class="row">
             {% for object in object_list %}
-                {#                <div class="row">#}
-                <div class="col-sm-6 col-md-4" style="height: 300px;">
-                    <div class="thumbnail" style="background-color: #9acfea; border: groove; height: 100%; margin-bottom: 10px;">
-                        <img src="{{ object.get_absolute_image_url }}"
-                             style="height: 100px; width: auto;">
+                <div class="col-sm-6 col-md-4">
+                    <div class="em-card"
+                         style="background:ghostwhite url('{{ object.get_absolute_image_url }}') no-repeat center;">
+                        {#                    <div class="thumbnail" style="background-color: #9acfea; border: groove; height: 100%; margin-bottom: 10px;">#}
+                        <h3><span>{{ object.error_code }}
+                            <small> - {{ object.title }}</small></span></h3>
 
-                        <div class="caption">
-                            <h3>{{ object.error_code }}</h3>
-                            <h5>{{ object.title }}</h5>
-                            <p>{{ object.description }}</p>
-                            <p><a href="{{ object.get_absolute_image_url }}">
-                                View photo
+                        <p><span>{{ object.description|truncatechars:120 }}</span></p>
+                        <div class="card-links">
+                            <a href="{{ object.get_absolute_image_url }}">
+                                <div class="glyphicon glyphicon-eye-open"></div>
                             </a>
-                                |
-                                <a href="{% url "emessages:preview" err_id=object.error_code %}">Preview</a>
-                                |
-                                <a href="{% url "emessages:em_update" pk=object.error_code %}">Edit</a>
-                                |
-                                <a href="{% url 'emessages:delete_em' pk=object.error_code %}">Remove</a>
-                            </p>
+                            |
+                            <a href="{% url "emessages:preview" err_id=object.error_code %}"><div class="glyphicon glyphicon-camera"></div></a>
+                            |
+                            <a href="{% url "emessages:em_update" pk=object.error_code %}"><div class="glyphicon glyphicon-edit"></div></a>
+                            |
+                            <a href="{% url 'emessages:delete_em' pk=object.error_code %}"><div class="glyphicon glyphicon-remove"></div></a>
                         </div>
+
                     </div>
                 </div>
 
@@ -43,5 +42,4 @@
     {% else %}
         No errors added yet. <a href="{% url "emessages:add" %}">Add an error message</a>
     {% endif %}
-
 {% endblock %}

@@ -7,7 +7,7 @@ from django.views.generic.edit import FormView
 from . import forms
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
-
+from emessages import models as em
 
 class LoginView(FormView):
     form_class = forms.LoginForm
@@ -44,6 +44,7 @@ def register_user(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            em.create_em_for_new_user(form.instance)
             return redirect("/")
     args = {}
     args.update(csrf(request))

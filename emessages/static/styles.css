@@ -1,0 +1,42 @@
+.col-md-4, .col-sm-6 {
+    margin-bottom: 7px;
+}
+
+.em-card {
+    box-shadow: 3px 3px 5px #888888;
+    border-radius: 10px;
+    height: 200px;
+    width: 99%;
+    margin: auto;
+    padding: 10px;
+    /*margin: 10px;*/
+}
+.em-card:hover {
+    box-shadow: 0px 0px 0px #888888;
+
+}
+
+
+.em-card span {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    margin-bottom: 2px;
+}
+
+.em-card .card-links {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+}
+
+.em-card .card-links a div {
+    color: white;
+    width: 30px;
+
+}
+
+.em-card span small {
+    color: white;
+
+}
