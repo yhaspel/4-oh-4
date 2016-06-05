@@ -1,14 +1,20 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.forms import ModelForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
+from authentication.models import LoggedInMixin, redirect_not_usr
 from . import models
 from django.core.urlresolvers import reverse_lazy
 from tips import views as tips_views
 
 
 def preview_em(request, err_id):
+    result = redirect_not_usr(request)
+    if result:
+        return result
     return render(request, "emessages/preview.html",
                   {
                       'object': models.EMessage.objects.filter(error_code=err_id).first()
@@ -24,14 +30,14 @@ def preview_em_end(request, user_id, err_id):
                   )
 
 
-class ErrorMessageDelete(DeleteView):
+class ErrorMessageDelete(LoggedInMixin, DeleteView):
     model = models.EMessage
     success_url = reverse_lazy('emessages:home')  # This is where this view will
     # redirect the user
     template_name = 'emessages/delete_em.html'
 
 
-class EMessageForm(ModelForm):
+class EMessageForm(LoggedInMixin, ModelForm):
     def __init__(self, *args, **kwargs):
         super(EMessageForm, self).__init__(*args, **kwargs)
         self.fields['error_code'].widget.attrs = {
@@ -57,7 +63,7 @@ class EMessageForm(ModelForm):
         ]
 
 
-class EMessageCreate(CreateView):
+class EMessageCreate(LoggedInMixin, CreateView):
     form_class = EMessageForm
 
     model = models.EMessage
@@ -75,7 +81,7 @@ class EMessageCreate(CreateView):
         return resp
 
 
-class ErrorMessageUpdate(UpdateView):
+class ErrorMessageUpdate(LoggedInMixin, UpdateView):
     form_class = EMessageForm
 
     model = models.EMessage
@@ -87,7 +93,7 @@ class ErrorMessageUpdate(UpdateView):
         return super().form_valid(form)
 
 
-class ListEMessageView(ListView):
+class ListEMessageView(LoggedInMixin, ListView):
     page_title = "Home"
     model = models.EMessage
 
@@ -98,4 +104,5 @@ class ListEMessageView(ListView):
         return tips_views.get_random_tip(self.request).content
 
     def get_queryset(self):
-        return super().get_queryset()  # .filter(account__user=self.request.user)
+        return super().get_queryset().filter(user=self.request.user)
+
