@@ -26,7 +26,7 @@ def get_wiki_http_errors():
 
     tip_title = re.compile("^==(.+)==$")
     error_title = re.compile("^(\d+)(.+)$")
-    error_codes = []
+    error_codes = {}
     tips = []
     lines = w.content.split("\n")
     index, length = 0, len(lines)
@@ -65,9 +65,9 @@ def get_wiki_http_errors():
                     break
                     # because we just found it maybe.. and we need the upper loop to check it
 
-            error_codes.append(em)
+            error_codes[em["error_code"]] = em
         index += 1
-    return error_codes
+    return error_codes.values()
 
 
 def save_emessages(dict_emessages):
