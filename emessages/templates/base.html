@@ -36,6 +36,11 @@
         </a>
     </div>
 
+    {% if view.search == "active" %}
+        <input type="text" name="filter" class="form-control search" placeholder="Search for..."/>
+    {% endif %}
+
+
     {% bootstrap_messages %}
     <div>
         {% block content %}

@@ -103,6 +103,9 @@ class ListEMessageView(LoggedInMixin, ListView):
     def get_tip(self):
         return tips_views.get_random_tip(self.request).content
 
+    def search(self):
+        return "active"
+
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
 
