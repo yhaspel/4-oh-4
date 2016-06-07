@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'emessages',
     'tips',
     'authentication',
+    'management',
 ]
 
 MIDDLEWARE_CLASSES = [
