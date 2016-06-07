@@ -76,6 +76,7 @@ def save_emessages(dict_emessages):
         if photo:
             del em["photo"]
         item = models.EMessage(**em)
+        item.user = None
         if photo:
             item.photo.save(name="{}.{}".format(em["error_code"], 'png'), content=File(photo.fp))
         item.save()
