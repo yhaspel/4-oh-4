@@ -3,7 +3,7 @@
 }
 
 .em-card {
-    box-shadow: 3px 3px 5px #888888;
+    box-shadow: 0px 0px 0px #888888;
     border-radius: 10px;
     height: 200px;
     width: 99%;
@@ -13,7 +13,7 @@
 }
 
 .em-card:hover {
-    box-shadow: 0px 0px 0px #888888;
+    box-shadow: 3px 3px 5px #888888;
 
 }
 
@@ -37,9 +37,19 @@
 }
 
 .em-card span {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
     color: white;
     margin-bottom: 2px;
+    -webkit-transition: background-color 0.3s ease-in;
+    -moz-transition: background-color 0.3s ease-in;
+    -o-transition: background-color 0.3s ease-in;
+    transition: background-color 0.3s ease-in;
+
+}
+
+
+.em-card span:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .em-card .card-links {
