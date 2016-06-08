@@ -37,7 +37,7 @@
 }
 
 .em-card span {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.2);
     color: white;
     margin-bottom: 2px;
     -webkit-transition: background-color 0.3s ease-in;

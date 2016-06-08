@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^preview/(?P<err_id>\d+)/$', views.preview_em, name="preview"),
     url(r'^preview/(?P<user_id>\d+)/(?P<err_id>\d+)/$', views.preview_em_end, name="end_preview"),
     url(r'^add/$', views.EMessageCreate.as_view(), name="add"),
-    url(r'^update/(?P<pk>\d+)/$', views.ErrorMessageDelete.as_view(), name="delete_em"),
-    url(r'^delete/(?P<pk>\d+)/$', views.ErrorMessageUpdate.as_view(), name="em_update"),
+    url(r'^delete/(?P<pk>\d+)/$', views.ErrorMessageDelete.as_view(), name="delete_em"),
+    url(r'^update/(?P<pk>\d+)/$', views.ErrorMessageUpdate.as_view(), name="em_update"),
 ]

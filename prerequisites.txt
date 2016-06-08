@@ -1,0 +1,9 @@
+Prerequisites:
+** Verify packages compatibitity with requirements.txt **
+
+Run python manage.py shell:
+1. >>> from emessages import console as c
+2. >>> c.save_emessages(c.get_wiki_http_errors())
+
+3. >>> from tips import console as c
+4. >>> c.save_tips(c.load_tips_from_dlsv())
